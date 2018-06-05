@@ -14,7 +14,10 @@ const wsReadyState2String = {
 let ws = null;
 
 try {
-    ws = new WebSocket('ws://localhost:3000');
+    var HOST = location.origin.replace(/^http/, 'ws')
+
+    //ws = new WebSocket('ws://localhost:3000');
+    ws = new WebSocket(HOST);
 
     window[Symbol.for('ws.client')] = ws;
 
