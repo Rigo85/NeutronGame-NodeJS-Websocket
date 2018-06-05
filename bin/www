@@ -1,79 +1,20 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
 var app = require('../app');
-var Neutron = require('../games/neutron/main');
-
 var debug = require('debug')('neutrongame-nodejs-websocket:server');
 var http = require('http');
-var WebSocket = require('ws');
-var cookie = require('cookie');
-var cookieParser = require('cookie-parser');
+var GameServer = require('../games/GameServer');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 var server = http.createServer(app);
 
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', (ws, req) => {
-  const sid = cookieParser.signedCookie(cookie.parse(req.headers.cookie)['connect.sid'], 'secret');
-
-  ws.isAlive = true;
-
-  ws.on('pong', () => {
-    ws.isAlive = true;
-  });
-
-  ws.on('message', msg => {
-    const message = JSON.parse(msg);
-    let game = message.game;
-
-    const gameHandlers = {
-      'neutron': () => { Neutron.processEvent(message, ws, sid); },
-      'default': () => {
-        //TODO ver que hacer...!
-      }
-    };
-
-    if (!gameHandlers[game]) {
-      game = 'default';
-    }
-
-    gameHandlers[game]();
-  });
-
-  //ws.send('crear lo necesario para nuevo cliente');
-
-  ws.on('error', (err) => {
-    console.warn(`Client disconnected - reason: ${err}`);
-  })
-});
-
-setInterval(() => {
-  wss.clients.forEach(ws => {
-    if (!ws.isAlive) return ws.terminate();
-
-    ws.isAlive = false;
-    ws.ping(null, undefined);
-  });
-}, 10000);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
+new GameServer(server);
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -90,10 +31,6 @@ function normalizePort(val) {
 
   return false;
 }
-
-/**
- * Event listener for HTTP server "error" event.
- */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -118,10 +55,6 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
   var addr = server.address();

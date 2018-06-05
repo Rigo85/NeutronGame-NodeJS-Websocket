@@ -14,10 +14,7 @@ exports.processEvent = (message, ws, sid) => {
 
 	const actionHandlers = {
 		'reload': () => { reloadEvent(message.content, ws, sid); },
-		'game:save': () => {
-			console.log('saving game!');
-			// data[sid].saveGame();
-		},
+		'game:save': () => { saveGame(ws, sid); },
 		'game:new': () => { newGameEvent(ws, sid); },
 		'cell:click': () => { cellClickEvent(message.content, ws, sid); },
 		'default': () => {
@@ -32,14 +29,17 @@ exports.processEvent = (message, ws, sid) => {
 	actionHandlers[action]();
 };
 
+function saveGame(ws, sid) {
+	ws.send(createMessage('game:save', data[sid]));
+}
+
 function reloadEvent(content, ws, sid) {
 	ws.send(createMessage('board:updated', { board: data[sid].board, moves: data[sid].movements, endgame: { success: false } }));
 }
 
 function newGameEvent(ws, sid) {
-	//data[sid].newGame();
 	data[sid] = new UserData();
-	ws.send('board:updated', { board: data[sid].board, moves: data[sid].movements, endgame: { success: false } });
+	ws.send(createMessage('board:updated', { board: data[sid].board, moves: data[sid].movements, endgame: { success: false } }));
 }
 
 function cellClickEvent({ id }, ws, sid) {

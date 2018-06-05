@@ -1,4 +1,6 @@
 const uuidv4 = require('uuid/v4');
+const FileSaver = require('file-saver');
+const moment = require('moment');
 
 const { PieceKind } = require('./gameutils.js');
 
@@ -39,6 +41,7 @@ try {
 
         const actionHandlers = {
             'board:updated': () => { boardUpdateEvent(message.content, ws); },
+            'game:save': () => { saveGame(message.content, ws); },
             'default': () => {
                 // TODO ver q hacer aqui
             }
@@ -53,6 +56,12 @@ try {
 
 } catch (error) {
     console.error(error);
+}
+
+function saveGame(content, ws) {
+    const filename = `neutron-game-${moment().format().replace(/[:.]/g, '-')}.json`;
+    var file = new File([JSON.stringify(content)], filename, { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(file);
 }
 
 /**
