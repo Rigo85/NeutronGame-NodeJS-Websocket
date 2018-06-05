@@ -16,6 +16,7 @@ exports.processEvent = (message, ws, sid) => {
 		'reload': () => { reloadEvent(message.content, ws, sid); },
 		'game:save': () => { saveGame(ws, sid); },
 		'game:new': () => { newGameEvent(ws, sid); },
+		'game:load': () => { loadGame(message.content, ws, sid); },
 		'cell:click': () => { cellClickEvent(message.content, ws, sid); },
 		'default': () => {
 			// TODO ver q hacer!
@@ -28,6 +29,10 @@ exports.processEvent = (message, ws, sid) => {
 
 	actionHandlers[action]();
 };
+
+function loadGame(content, ws, sid) {
+	console.log("loading game!");
+}
 
 function saveGame(ws, sid) {
 	ws.send(createMessage('game:save', data[sid]));

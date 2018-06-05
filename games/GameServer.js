@@ -16,13 +16,22 @@ class GameServer {
 			ws.on('pong', () => { ws.isAlive = true; });
 
 			ws.on('message', msg => {
-				const message = JSON.parse(msg);
-				let game = message.game;
+				let message, game = 'default', info = 'There is nothing to do!, try to start a new game!';
+
+				try {
+					message = JSON.parse(msg);
+					game = message.game;
+				} catch (error) {
+					console.log(error);
+					const name = error.name || 'Error';
+					const errorMsg = error.message || 'empty error message';
+					info = name == 'SyntaxError' ? 'The saved game is corrupted!' : `${name}: ${errorMsg}`;
+				}
 
 				const gameHandlers = {
 					'neutron': () => { Neutron.processEvent(message, ws, sid); },
 					'default': () => {
-						//TODO ver que hacer...!
+						ws.send(`{"event":"messages", "content": "${info}"}`);
 					}
 				};
 

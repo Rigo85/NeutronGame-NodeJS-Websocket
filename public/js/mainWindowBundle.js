@@ -22279,6 +22279,8 @@ let ws = null;
 try {
     ws = new WebSocket('ws://localhost:3000');
 
+    window[Symbol.for('ws.client')] = ws;
+
     ws.onopen = openEvent => {
         if (!window[Symbol.for('ws.send.id')]) {
             window[Symbol.for('ws.send.id')] = uuidv4();
@@ -22305,6 +22307,7 @@ try {
         const actionHandlers = {
             'board:updated': () => { boardUpdateEvent(message.content, ws); },
             'game:save': () => { saveGame(message.content, ws); },
+            'messages': () => { alert(message.content); },
             'default': () => {
                 // TODO ver q hacer aqui
             }
