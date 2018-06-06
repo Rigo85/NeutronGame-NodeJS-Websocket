@@ -1,12 +1,4 @@
 
-// $(document).ready(function () {
-// 	const a = $('.sidenav');
-// 	console.log(a);
-// 	console.log(a[0]);
-// 	console.log(a.length);
-// 	$('.sidenav')[0].sidenav();	
-// });
-
 document.addEventListener('DOMContentLoaded', function () {
 	var elems = document.querySelectorAll('.sidenav');
 	const options = {};
@@ -40,5 +32,16 @@ function saveGame(event) {
 	ws.send(`{"game": "${window[Symbol.for('ws.game.id')]}", "event": "game:save", "sender": "${window[Symbol.for('ws.send.id')]}", "content": "{}"}`);
 }
 
+function loadGame(event) {
+	$('#loadgameinput').trigger('click');
+}
 
+$("#newgame").click(newGame);
+$("#savegame").click(saveGame);
+$("#loadgame").click(loadGame);
+$("#loadgameinput").change(openFile);
+$("#newgame2").click(newGame);
+$("#savegame2").click(saveGame);
+$("#loadgame2").click(loadGame);
+$("#loadgameinput2").change(openFile);
 

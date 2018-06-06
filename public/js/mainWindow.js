@@ -140,7 +140,6 @@ function createChip(pieceKind, row, col, ws) {
         ws.send(createMessage('cell:click', { id: e.target.id }));
     });
 
-    console.log(child);
     div.appendChild(child);
 
     return div;
@@ -215,7 +214,6 @@ function updateMovements(moves) {
  * Refresh view on board changes.
  */
 function boardUpdateEvent({ board, moves, endgame }, ws) {
-    console.log('-*-*--*-*-*');
     document.getElementById("neutronBoard").innerHTML = '';
     //TODO mostrar la jugada final en el tablero antes de reiniciar.
     Array

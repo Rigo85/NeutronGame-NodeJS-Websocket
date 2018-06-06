@@ -4,7 +4,6 @@
 <head>
     <title>Neuton Game</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link rel="stylesheet" href="css/mainWindow.css">
 
@@ -14,57 +13,23 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="#!" class="brand-logo">Logo</a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <a class="brand-logo">Neutron Game</a>
+            <a data-target="mobile-demo" class="sidenav-trigger">
                 <i class="material-icons">menu</i>
             </a>
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <a href="sass.html">Sass</a>
-                </li>
-                <li>
-                    <a href="badges.html">Components</a>
-                </li>
-                <li>
-                    <a href="collapsible.html">Javascript</a>
-                </li>
-                <li>
-                    <a href="mobile.html">Mobile</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <ul class="sidenav" id="mobile-demo">
-        <li>
-            <a href="sass.html">Sass</a>
-        </li>
-        <li>
-            <a href="badges.html">Components</a>
-        </li>
-        <li>
-            <a href="collapsible.html">Javascript</a>
-        </li>
-        <li>
-            <a href="mobile.html">Mobile</a>
-        </li>
-    </ul>
-    <!-- <nav class="nav-extended">
-        <div class="nav-wrapper db">
-            <a class="brand-logo ">Neutron Game</a>
-            <ul class="bt right hide-on-med-and-down">
-                <li>
-                    <a onclick="newGame(event);">
+                    <a id="newgame1">
                         <i class="material-icons">add_box</i>
                     </a>
                 </li>
                 <li>
-                    <a onclick="saveGame(event);">
+                    <a id="savegame2">
                         <i class="material-icons">save</i>
                     </a>
                 </li>
                 <li>
-                    <a onclick="$('#loadgame').trigger('click');">
+                    <a id="loadgame2">
                         <i class="material-icons">file_upload</i>
                     </a>
                 </li>
@@ -79,32 +44,65 @@
                     </a>
                 </li>
                 <li>
-                    <input id="loadgame" class="hide" type='file' accept='text/plain' onchange='openFile(event)'>
+                    <input id="loadgameinput2" class="hide" type='file' accept='text/plain'>
                 </li>
             </ul>
         </div>
-    </nav> -->
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a id="newgame">
+                <i class="material-icons">add_box</i>
+                New game
+            </a>
+        </li>
+        <li>
+            <a id="savegame">
+                <i class="material-icons">save</i>
+                Save game
+            </a>
+        </li>
+        <li>
+            <a id="loadgame">
+                <i class="material-icons">file_upload</i>
+                Load game
+            </a>
+        </li>
+        <li>
+            <a href="https://en.wikipedia.org/wiki/Neutron_(game)">
+                <i class="material-icons">help</i>
+                About
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/Rigo85/NeutronGame-NodeJS-Websocket">
+                <i class="material-icons">code</i>
+                Source code
+            </a>
+        </li>
+        <li>
+            <input id="loadgameinput" class="hide" type='file' accept='text/plain'>
+        </li>
+    </ul>
 
     <br>
 
-    <div class="center_div">
-        <div class="row">
-            <br>
-            <div class="col">
-                <div id="neutronBoard">
-                </div>
+    <div class="row center_div">
+        <br>
+        <div class="col">
+            <div id="neutronBoard">
             </div>
-            <div class="col">
-                <label>Movements</label>
-                <ul id='movements' class="collection height-limiter">
-                </ul>
-            </div>
+        </div>
+        <div class="col">
+            <label>Movements</label>
+            <ul id='movements' class="collection height-limiter">
+            </ul>
         </div>
     </div>
 
     <script src="https://hammerjs.github.io/dist/hammer.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/mainWindowBundle.js"></script>
     <script type="text/javascript" src="js/utils.js"></script>
