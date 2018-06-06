@@ -22278,8 +22278,6 @@ let ws = null;
 
 try {
     var HOST = location.origin.replace(/^http/, 'ws')
-
-    //ws = new WebSocket('ws://localhost:3000');
     ws = new WebSocket(HOST);
 
     window[Symbol.for('ws.client')] = ws;
@@ -22394,7 +22392,7 @@ function createChip(pieceKind, row, col, ws) {
     const child = document.createElement('a');
     child.className = chipKind[pieceKind].className;
     child.id = `${chipKind[pieceKind].kind}-${row}-${col - 1}`;
-    child.style = "height:48px;width:48px;";
+    child.style = "height:46px;width:46px;margin:1px 0 0 -15px;";
 
     child.addEventListener('click', e => {
         if (ws.readyState != WebSocket.OPEN) {
@@ -22405,6 +22403,7 @@ function createChip(pieceKind, row, col, ws) {
         ws.send(createMessage('cell:click', { id: e.target.id }));
     });
 
+    console.log(child);
     div.appendChild(child);
 
     return div;
@@ -22425,7 +22424,7 @@ function createHeader(row, col) {
         child = document.createElement('a');
         child.text = rows[row];
         child.className = 'btn-flat disabled';
-        child.style = "height:50px;width:50px;padding: 0 0 0 0;";
+        child.style = "height:50px;width:50px;padding: 8px 0 0 0;";
     }
 
     div.appendChild(child);
@@ -22479,6 +22478,7 @@ function updateMovements(moves) {
  * Refresh view on board changes.
  */
 function boardUpdateEvent({ board, moves, endgame }, ws) {
+    console.log('-*-*--*-*-*');
     document.getElementById("neutronBoard").innerHTML = '';
     //TODO mostrar la jugada final en el tablero antes de reiniciar.
     Array
@@ -22487,7 +22487,7 @@ function boardUpdateEvent({ board, moves, endgame }, ws) {
             const row = parseInt(i / 6);
             const col = i % 6;
             if (row > 4 || !col) return createHeader(row, col);
-            return createChip(board[row][col - 1], row, col, ws);
+           return createChip(board[row][col - 1], row, col, ws);
         })
         .forEach(d => document.getElementById("neutronBoard").appendChild(d));
 

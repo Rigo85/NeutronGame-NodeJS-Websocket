@@ -4,18 +4,55 @@
 <head>
     <title>Neuton Game</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link rel="stylesheet" href="css/mainWindow.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="text/javascript" src="js/utils.js"></script>
 </head>
 
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="#!" class="brand-logo center">Neutron Game</a>
+            <a href="#!" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
             <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="sass.html">Sass</a>
+                </li>
+                <li>
+                    <a href="badges.html">Components</a>
+                </li>
+                <li>
+                    <a href="collapsible.html">Javascript</a>
+                </li>
+                <li>
+                    <a href="mobile.html">Mobile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a href="sass.html">Sass</a>
+        </li>
+        <li>
+            <a href="badges.html">Components</a>
+        </li>
+        <li>
+            <a href="collapsible.html">Javascript</a>
+        </li>
+        <li>
+            <a href="mobile.html">Mobile</a>
+        </li>
+    </ul>
+    <!-- <nav class="nav-extended">
+        <div class="nav-wrapper db">
+            <a class="brand-logo ">Neutron Game</a>
+            <ul class="bt right hide-on-med-and-down">
                 <li>
                     <a onclick="newGame(event);">
                         <i class="material-icons">add_box</i>
@@ -32,11 +69,21 @@
                     </a>
                 </li>
                 <li>
+                    <a href="https://en.wikipedia.org/wiki/Neutron_(game)">
+                        <i class="material-icons">help</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Rigo85/NeutronGame-NodeJS-Websocket">
+                        <i class="material-icons">code</i>
+                    </a>
+                </li>
+                <li>
                     <input id="loadgame" class="hide" type='file' accept='text/plain' onchange='openFile(event)'>
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 
     <br>
 
@@ -57,8 +104,10 @@
 
     <script src="https://hammerjs.github.io/dist/hammer.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/mainWindowBundle.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
 </body>
 
 </html>

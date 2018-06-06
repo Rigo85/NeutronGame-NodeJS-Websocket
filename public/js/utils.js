@@ -1,3 +1,18 @@
+
+// $(document).ready(function () {
+// 	const a = $('.sidenav');
+// 	console.log(a);
+// 	console.log(a[0]);
+// 	console.log(a.length);
+// 	$('.sidenav')[0].sidenav();	
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+	var elems = document.querySelectorAll('.sidenav');
+	const options = {};
+	var instances = M.Sidenav.init(elems, options);
+});
+
 var openFile = function (event) {
 	var input = event.target;
 
@@ -22,7 +37,8 @@ function newGame(event) {
 function saveGame(event) {
 	const ws = window[Symbol.for('ws.client')];
 	if (!ws) return;
-
 	ws.send(`{"game": "${window[Symbol.for('ws.game.id')]}", "event": "game:save", "sender": "${window[Symbol.for('ws.send.id')]}", "content": "{}"}`);
 }
+
+
 

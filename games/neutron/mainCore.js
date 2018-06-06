@@ -31,54 +31,6 @@ function updateWhoMove(userData) {
 }
 
 /**
- * Save game.
- * @param {*} filename 
- */
-exports.saveGame = (filename) => {
-    filename = filename || path.join(process.cwd(), `neutron-game-${moment().format().replace(/[:.]/g, '-')}.json`);
-
-    jsonfile.writeFile(
-        filename,
-        {
-            board: exports.board,
-            movements: exports.movements,
-            whoMove: whoMove,
-            selectedChip: selectedChip,
-            neutronFrom: neutronFrom,
-            neutronTo: neutronTo
-        },
-        { spaces: 2 },
-        err => {
-            //TODO do this on mainwindow..
-            if (err) console.error(err);
-        });
-}
-
-/**
- * Load game.
- * @param {*} filename 
- */
-exports.loadGame = (filename) => {
-    return new Promise((resolve, reject) => {
-        jsonfile.readFile(filename, (err, obj) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-
-            exports.board = obj.board || exports.board;
-            exports.movements = obj.movements || exports.movements;
-            whoMove = obj.whoMove;
-            selectedChip = obj.selectedChip;
-            neutronFrom = obj.neutronFrom;
-            neutronTo = obj.neutronTo;
-            resolve(true);
-        })
-    });
-
-}
-
-/**
  * Cell click event.
  * @param {*} row 
  * @param {*} col 
