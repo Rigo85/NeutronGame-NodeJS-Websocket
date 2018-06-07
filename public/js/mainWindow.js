@@ -139,9 +139,12 @@ function createChip(pieceKind, row, col, ws) {
             alert("webSocket is not open: " + wsReadyState2String[ws.readyState]);
             return;
         }
-        $('#progressbar').show();
+
+        if (e.target.id.startsWith('sc')) {
+            $('#progressbar').show();
+        }
+
         ws.send(createMessage('cell:click', { id: e.target.id }));
-        
     });
 
     div.appendChild(child);
@@ -226,7 +229,7 @@ function boardUpdateEvent({ board, moves, endgame }, ws) {
             const row = parseInt(i / 6);
             const col = i % 6;
             if (row > 4 || !col) return createHeader(row, col);
-           return createChip(board[row][col - 1], row, col, ws);
+            return createChip(board[row][col - 1], row, col, ws);
         })
         .forEach(d => document.getElementById("neutronBoard").appendChild(d));
 
