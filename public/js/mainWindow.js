@@ -31,14 +31,17 @@ try {
     };
 
     ws.onclose = closeEvent => {
+        $('#progressbar').hide();
         console.log(`Websocket client has closed, code: ${closeEvent.code}, reason: ${closeEvent.reason ? closeEvent.reason : 'no reason'}`);
     };
 
     ws.onerror = errorEvent => {
+        $('#progressbar').hide();
         console.log('Websocket client: An error has occurred!');
     };
 
     ws.onmessage = messageEvent => {
+        $('#progressbar').hide();
         const message = JSON.parse(messageEvent.data);
         const action = message.event;
 
@@ -136,8 +139,9 @@ function createChip(pieceKind, row, col, ws) {
             alert("webSocket is not open: " + wsReadyState2String[ws.readyState]);
             return;
         }
-
+        $('#progressbar').show();
         ws.send(createMessage('cell:click', { id: e.target.id }));
+        
     });
 
     div.appendChild(child);

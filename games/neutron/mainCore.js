@@ -55,7 +55,7 @@ exports.onCellClicked = function (row, col, userData) {
 
                 if (!endGame.success) {
                     
-                    const machineFullMove = maxValue(userData.board,3,Number.MIN_SAFE_INTEGER,Number.MAX_SAFE_INTEGER,PieceKind.BLACK);
+                    const machineFullMove = maxValue(userData.board,4,Number.MIN_SAFE_INTEGER,Number.MAX_SAFE_INTEGER,PieceKind.BLACK);
 
                     if (!machineFullMove.empty()) {
                         userData.movements.push(machineFullMove);
