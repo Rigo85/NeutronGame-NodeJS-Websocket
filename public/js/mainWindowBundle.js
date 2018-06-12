@@ -22295,16 +22295,19 @@ try {
 
     ws.onclose = closeEvent => {
         $('#progressbar').hide();
+        $('#hline').show();
         console.log(`Websocket client has closed, code: ${closeEvent.code}, reason: ${closeEvent.reason ? closeEvent.reason : 'no reason'}`);
     };
 
     ws.onerror = errorEvent => {
         $('#progressbar').hide();
+        $('#hline').show();
         console.log('Websocket client: An error has occurred!');
     };
 
     ws.onmessage = messageEvent => {
         $('#progressbar').hide();
+        $('#hline').show();
         const message = JSON.parse(messageEvent.data);
         const action = message.event;
 
@@ -22405,6 +22408,7 @@ function createChip(pieceKind, row, col, ws) {
 
         if (e.target.id.startsWith('sc')) {
             $('#progressbar').show();
+            $('#hline').hide();
         }
 
         ws.send(createMessage('cell:click', { id: e.target.id }));

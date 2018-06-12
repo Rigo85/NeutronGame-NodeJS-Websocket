@@ -44,3 +44,10 @@ $("#savegame2").click(saveGame);
 $("#loadgame2").click(loadGame);
 $("#loadgameinput2").change(openFile);
 
+$("#hline").css({
+	"color": "white",
+	"border-color": "white",
+	"background-color": "white",
+	"border-style": "solid",
+	"height": "10px"
+});
