@@ -35,3 +35,4 @@ Thumbs.db
 dist/**/*
 
 .env.project.*
+cmake-build-debug

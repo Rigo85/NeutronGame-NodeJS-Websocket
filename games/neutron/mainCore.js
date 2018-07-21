@@ -8,7 +8,7 @@ const moment = require('moment');
 
 const Move = require('./move.js');
 const FullMove = require('./fullMove.js');
-const { applyFullMove, PieceKind, updateBoard, moves, applyMove, checkGameOver } = require('./gameutils');
+const { applyFullMove, PieceKind, updateBoard, moves, applyMove, checkGameOver, tableToString } = require('./gameutils');
 const { maxValue } = require('./minimax');
 
 /**
@@ -54,8 +54,12 @@ exports.onCellClicked = function (row, col, userData) {
                 userData.movements.push(new FullMove([userData.neutronFrom, userData.neutronTo, userData.selectedChip, new Move(row, col, userData.selectedChip.kind)], 0));
 
                 if (!endGame.success) {
+
+                    const machineFullMove = maxValue(userData.board, 1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, PieceKind.BLACK);
                     
-                    const machineFullMove = maxValue(userData.board,4,Number.MIN_SAFE_INTEGER,Number.MAX_SAFE_INTEGER,PieceKind.BLACK);
+                    console.log("<================================================>");
+                    console.log(tableToString(userData.board));
+                    console.log(machineFullMove.toString());
 
                     if (!machineFullMove.empty()) {
                         userData.movements.push(machineFullMove);

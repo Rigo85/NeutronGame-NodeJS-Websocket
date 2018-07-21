@@ -265,9 +265,9 @@ exports.updateBoard = (moves, board) => {
  * @param {*} board 
  */
 exports.tableToString = (board) => {
-    console.log(Array
+    return Array
         .from(Array(5).keys())
-        .reduce((acc, i) => acc.concat(`||${board[i].map(exports.pieceToString).join('|')}||\n`), ''));
+        .reduce((acc, i) => acc.concat(`||${board[i]./*map(exports.pieceToString).*/join('|')}||\n`), '');              
 }
 
 /**

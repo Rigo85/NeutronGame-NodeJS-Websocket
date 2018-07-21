@@ -15,6 +15,7 @@ let ws = null;
 
 try {
     var HOST = location.origin.replace(/^http/, 'ws')
+    console.log(`${location.origin} ${HOST}`);
     ws = new WebSocket(HOST);
 
     window[Symbol.for('ws.client')] = ws;

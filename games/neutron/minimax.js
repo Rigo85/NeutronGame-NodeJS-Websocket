@@ -4,7 +4,7 @@ const Move = require('./move.js');
 const FullMove = require('./fullMove.js');
 exports.states = new Set();
 
-const { findNeutron, allMoves, applyFullMove, heuristic, PieceKind, getState } = require('./gameutils');
+const { findNeutron, allMoves, applyFullMove, heuristic, PieceKind } = require('./gameutils');
 
 /**
  * Maximum function
@@ -17,7 +17,7 @@ const { findNeutron, allMoves, applyFullMove, heuristic, PieceKind, getState } =
 exports.maxValue = (board, depth, alpha, beta, player) => {
     const neutron = findNeutron(board);
     if (!depth || neutron.row == 0 || neutron.row == 4) return new FullMove([], heuristic(board));
-
+    
     const fullMoves = allMoves(player, board);
 
     const maxFullMove = new FullMove([], alpha);
