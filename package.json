@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "apt install g++ && node-gyp configure && node-gyp rebuild && npm install -g browserify && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
+    "start": "node-gyp build && npm install -g browserify && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
     "debug": "node-gyp rebuild && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
     "compile": "node-gyp rebuild"
   },
