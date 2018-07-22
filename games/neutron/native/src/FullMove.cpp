@@ -79,3 +79,18 @@ FullMove *FullMove::clone() {
 
     return fm;
 }
+
+std::string FullMove::toJson() {
+    std::string str;
+    std::string movesJson;
+
+    if (this->moves->empty()) movesJson = "[]";
+    else
+        movesJson = "[" +
+                    this->moves->at(0)->toJson() + "," +
+                    this->moves->at(1)->toJson() + "," +
+                    this->moves->at(2)->toJson() + "," +
+                    this->moves->at(3)->toJson() + "]";
+
+    return "{\"moves\":" + movesJson + ", \"score\":" + std::to_string(score) + "}";
+}

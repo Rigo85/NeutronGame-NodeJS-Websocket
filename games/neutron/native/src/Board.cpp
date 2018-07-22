@@ -13,6 +13,7 @@
 
 #include <functional>
 #include <limits>
+#include <algorithm>
 
 #include <cstdlib>
 
@@ -143,7 +144,7 @@ std::vector<FullMove *> *Board::allMoves(PieceKind pieceKind) {
 
     clean(_neutronMoves);
 
-    std::sort(neutronMoves->begin(), neutronMoves->end(), [opponentHome, playerHome](auto o1, auto o2) {
+    std::sort(neutronMoves->begin(), neutronMoves->end(), [opponentHome, playerHome](auto *o1, auto *o2) {
         return (o2->row == playerHome || o1->row == opponentHome);
 //        if (o1->row == playerHome || o2->row == opponentHome) return -1;
 //        if (o2->row == playerHome || o1->row == opponentHome) return 1;

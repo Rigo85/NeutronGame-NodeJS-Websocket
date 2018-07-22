@@ -13,7 +13,6 @@
 
 #pragma once
 
-#include <cstdint>
 #include <ostream>
 
 #include <PieceKind.h>
@@ -25,6 +24,8 @@ public:
     ~Move() = default;
 
     Move *clone();
+
+    std::string toJson();
 
     friend std::ostream &operator<<(std::ostream &ostr, const Move &move);
 

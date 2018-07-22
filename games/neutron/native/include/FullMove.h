@@ -14,6 +14,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 #include <Move.h>
 #include <PieceKind.h>
@@ -33,6 +34,8 @@ public:
     void cloneMoves(std::vector<Move *> *moves);
 
     FullMove *clone();
+
+    std::string toJson();
 
     std::vector<Move *> *moves = nullptr;
     int score;

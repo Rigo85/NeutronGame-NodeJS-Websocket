@@ -15,9 +15,12 @@ int main() {
     std::cout << "time: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << std::endl;
     std::cout << *board << std::endl;
     std::cout << *fm << std::endl;
+    std::cout << fm->toJson() << std::endl;
 
     delete fm;
     delete board;
+
+//    std::cout << static_cast<int>(PieceKind::NEUTRON) << std::endl;
 
     return 0;
 }

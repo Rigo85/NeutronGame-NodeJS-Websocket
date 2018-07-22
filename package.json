@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm install -g browserify && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
-    "debug": "browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www"
+    "start": "node-gyp rebuild && npm install -g browserify && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
+    "debug": "node-gyp rebuild && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
+    "compile": "node-gyp rebuild"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -19,6 +20,8 @@
     "loggy": "^1.0.2",
     "moment": "^2.22.2",
     "morgan": "~1.9.0",
+    "nan": "^2.10.0",
+    "node-gyp": "^3.7.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "^2.5.0",
     "uuid": "^3.2.1",

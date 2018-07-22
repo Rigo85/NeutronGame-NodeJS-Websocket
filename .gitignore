@@ -36,3 +36,4 @@ dist/**/*
 
 .env.project.*
 cmake-build-debug
+build

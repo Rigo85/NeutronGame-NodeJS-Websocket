@@ -12,6 +12,7 @@
  */
 
 #include <iostream>
+#include <limits>
 
 #include <minimax.h>
 #include <gameutils.h>

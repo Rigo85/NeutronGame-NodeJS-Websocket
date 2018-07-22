@@ -11,6 +11,8 @@ const FullMove = require('./fullMove.js');
 const { applyFullMove, PieceKind, updateBoard, moves, applyMove, checkGameOver, tableToString } = require('./gameutils');
 const { maxValue } = require('./minimax');
 
+const { NativeMinimax } = require('./bindings');
+
 /**
  * Pieces rotation.
  */
@@ -55,11 +57,16 @@ exports.onCellClicked = function (row, col, userData) {
 
                 if (!endGame.success) {
 
-                    const machineFullMove = maxValue(userData.board, 1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, PieceKind.BLACK);
-                    
-                    console.log("<================================================>");
-                    console.log(tableToString(userData.board));
-                    console.log(machineFullMove.toString());
+                    //const machineFullMove = maxValue(userData.board, 1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, PieceKind.BLACK);
+
+                    const objStr = NativeMinimax(JSON.stringify({ board: userData.board }));
+                    const obj = JSON.parse(objStr);
+                    //const machineFullMove = new FullMove(obj.moves.map(o => new Move(o.row, o.col, o.kind)), obj.score);
+                    const machineFullMove = new FullMove(obj.moves, obj.score);
+
+                    // console.log("<================================================>");
+                    // console.log(tableToString(userData.board));
+                    // console.log(machineFullMove.toString());
 
                     if (!machineFullMove.empty()) {
                         userData.movements.push(machineFullMove);
