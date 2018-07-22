@@ -16,12 +16,12 @@
 		],
         "cflags_cc": [
             "-std=c++14",
-            "-O3",
-            "-flto", 
-            "-ffast-math",
-            "-msse4.2",
-            "-march=native",
-            "-mtune=native"
+            # "-O3",
+            # "-flto", 
+            # "-ffast-math",
+            # "-msse4.2",
+            # "-march=native",
+            # "-mtune=native"
         ]
 	}]
 }
