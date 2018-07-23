@@ -20,8 +20,6 @@
 #include <gameutils.h>
 
 NAN_METHOD(NativeMinimax){
-    // auto table = (std::string) "{\"board\":[[1,1,1,1,1],[4,3,4,4,4],[4,2,4,4,4],[4,4,4,4,4],[2,4,2,2,2]]}";
-    
     // TODO add parameter validation.
     std::string input(*Nan::Utf8String(info[0])); 
     auto *board = new Board(getTable(input));
