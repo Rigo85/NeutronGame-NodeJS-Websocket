@@ -24,7 +24,7 @@ NAN_METHOD(NativeMinimax){
     std::string input(*Nan::Utf8String(info[0])); 
     auto *board = new Board(getTable(input));
     auto t1 = std::chrono::system_clock::now();
-    auto *fm = maxValue(board, 4, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), PieceKind::BLACK);
+    auto *fm = maxValue(board, 5, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), PieceKind::BLACK);
     auto t2 = std::chrono::system_clock::now();
     auto fullMoveJson = Nan::New(fm->toJson()).ToLocalChecked();
 
