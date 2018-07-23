@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm install -g browserify && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
-    "debug": "node-gyp rebuild && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
+    "debug": "browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
     "compile": "node-gyp rebuild"
   },
   "dependencies": {
