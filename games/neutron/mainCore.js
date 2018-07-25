@@ -38,7 +38,7 @@ function updateWhoMove(userData) {
  * @param {*} col 
  */
 exports.onCellClicked = function (row, col, userData) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let endGame;
         if (userData.board[row][col] === getWhoMove(userData)) {
             updateBoard([], userData.board);
@@ -47,7 +47,6 @@ exports.onCellClicked = function (row, col, userData) {
             updateBoard(m.concat(move), userData.board);
             userData.selectedChip = move;
         } else if (userData.board[row][col] == PieceKind.SCELL) {
-
             applyMove(userData.selectedChip, new Move(row, col, userData.selectedChip.kind), userData.board);
             updateBoard([], userData.board);
 
@@ -56,18 +55,9 @@ exports.onCellClicked = function (row, col, userData) {
                 userData.movements.push(new FullMove([userData.neutronFrom, userData.neutronTo, userData.selectedChip, new Move(row, col, userData.selectedChip.kind)], 0));
 
                 if (!endGame.success) {
-
-                    //const machineFullMove = maxValue(userData.board, 1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, PieceKind.BLACK);
-
-                    const objStr = NativeMinimax(JSON.stringify({ board: userData.board }));
+                    const objStr = await NativeMinimaxPromise(userData.board);
                     const obj = JSON.parse(objStr);
-                    //const machineFullMove = new FullMove(obj.moves.map(o => new Move(o.row, o.col, o.kind)), obj.score);
                     const machineFullMove = new FullMove(obj.moves, obj.score);
-
-                    // console.log("<================================================>");
-                    // console.log(tableToString(userData.board));
-                    // console.log(machineFullMove.toString());
-
                     if (!machineFullMove.empty()) {
                         userData.movements.push(machineFullMove);
                         userData.neutronTo = machineFullMove.moves[1];
@@ -92,5 +82,14 @@ exports.onCellClicked = function (row, col, userData) {
             userData.selectedChip = undefined;
         }
         resolve({ board: userData.board, moves: userData.movements, endgame: endGame || { success: false } });
+    });
+}
+
+function NativeMinimaxPromise(board) {
+    return new Promise((resolve, reject) => {
+        NativeMinimax(JSON.stringify({ board: board }), false, (error, result) => {
+            if (error) return reject(error);
+            return resolve(result);
+        });
     });
 }

@@ -55,7 +55,7 @@ class GameServer {
 
 				ws.isAlive = false;
 				ws.ping(null, undefined);
-				console.log(`------>>>pinging ${new Date()}`);
+				//console.log(`------>>>pinging ${new Date()}`);
 			});
 		}, 10000);
 	}

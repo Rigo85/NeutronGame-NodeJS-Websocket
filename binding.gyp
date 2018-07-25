@@ -12,7 +12,9 @@
             "games/neutron/native/src/gameutils.cpp",
             "games/neutron/native/src/minimax.cpp",
             "games/neutron/native/src/Move.cpp",
-            "games/neutron/native/NativeMinimax.cpp"
+            "games/neutron/native/src/MinimaxAsyncWorker.cpp",
+            "games/neutron/native/src/MinimaxAsyncBinding.cpp",
+            "games/neutron/native/index.cpp"
 		],
         "cflags_cc": [
             "-std=c++14",

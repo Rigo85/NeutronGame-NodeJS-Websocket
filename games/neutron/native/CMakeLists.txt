@@ -7,8 +7,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -flto -ffast-math -funroll-all
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pg -fprofile-arcs -ftest-coverage")
 
-set(SOURCE_FILES main.cpp src/Move.cpp src/FullMove.cpp src/gameutils.cpp src/Board.cpp src/minimax.cpp src/cleaners.cpp)
+set(SOURCE_FILES main.cpp src/Move.cpp src/FullMove.cpp src/gameutils.cpp src/Board.cpp src/minimax.cpp src/cleaners.cpp src/MinimaxAsyncWorker.cpp)
 
-include_directories(include)
+include_directories(include /home/rigo/shared_folder/node-addon/node_modules/nan/)
 
 add_executable(native ${SOURCE_FILES})
