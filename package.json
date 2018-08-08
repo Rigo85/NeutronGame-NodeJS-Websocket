@@ -5,8 +5,7 @@
   "scripts": {
     "start": "npm install -g browserify && browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
     "debug": "browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
-    "compile": "node-gyp rebuild",
-    "heroku-prebuild": "node-gyp rebuild"
+    "compile": "node-gyp rebuild"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
