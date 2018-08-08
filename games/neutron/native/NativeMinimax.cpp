@@ -28,7 +28,7 @@ NAN_METHOD(NativeMinimax){
     auto t2 = std::chrono::system_clock::now();
     auto fullMoveJson = Nan::New(fm->toJson()).ToLocalChecked();
 
-    std::cout << "time: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << std::endl;
+    std::cout << "time: " << std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count() << "s" << std::endl;
 
     delete fm;
     delete board;
