@@ -37,3 +37,5 @@ dist/**/*
 .env.project.*
 cmake-build-debug
 build
+games/neutron/native/build/
+jugadaspara reproducir problema logico.txt

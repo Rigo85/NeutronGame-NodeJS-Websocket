@@ -18,10 +18,12 @@
 #include <gameutils.h>
 #include <PieceKind.h>
 
-FullMove *maxValue(Board *board, int depth, int alpha, int beta, PieceKind player) {
+FullMove *maxValue(Board *board, int depth, int alpha, int beta, PieceKind player)
+{
     auto *neutron = board->findNeutron();
 
-    if (!depth || neutron->row == 0 || neutron->row == 4) {
+    if (!depth || neutron->row == 0 || neutron->row == 4)
+    {
         clean(neutron);
         return new FullMove({}, heuristic(board));
     }
@@ -30,20 +32,23 @@ FullMove *maxValue(Board *board, int depth, int alpha, int beta, PieceKind playe
 
     auto maxFullMove = new FullMove({}, alpha);
 
-    for (auto &fullMove: *fullMoves) {
+    for (auto &fullMove : *fullMoves)
+    {
         board->applyFullMove(fullMove);
 
         auto minFullMove = minValue(board, depth - 1, maxFullMove->score, beta,
                                     player == PieceKind::BLACK ? PieceKind::WHITE : PieceKind::BLACK);
 
-        if (minFullMove->score > maxFullMove->score) {
+        if (minFullMove->score > maxFullMove->score)
+        {
             maxFullMove->score = minFullMove->score;
             maxFullMove->cloneMoves(fullMove->moves);
         }
 
         board->applyFullMove(fullMove, false);
 
-        if (maxFullMove->score >= beta) {
+        if (maxFullMove->score >= beta)
+        {
             fullMove->score = beta;
 
             auto *fullMoveClone = fullMove->clone();
@@ -58,15 +63,18 @@ FullMove *maxValue(Board *board, int depth, int alpha, int beta, PieceKind playe
         clean(minFullMove);
     }
 
-    if (maxFullMove->empty() && !fullMoves->empty()) {
+    if (maxFullMove->empty() && !fullMoves->empty())
+    {
         auto tmp = new FullMove({}, std::numeric_limits<int>::min());
-        for (auto &fullMove: *fullMoves) {
+        for (auto &fullMove : *fullMoves)
+        {
             board->applyFullMove(fullMove);
             auto h = heuristic(board);
             board->applyFullMove(fullMove, false);
             fullMove->score = h;
 
-            if (fullMove->score > tmp->score) {
+            if (fullMove->score > tmp->score)
+            {
                 delete tmp;
                 tmp = fullMove->clone();
             }
@@ -77,7 +85,9 @@ FullMove *maxValue(Board *board, int depth, int alpha, int beta, PieceKind playe
         clean(neutron);
 
         return tmp;
-    } else {
+    }
+    else
+    {
         clean(fullMoves);
         clean(neutron);
 
@@ -85,10 +95,12 @@ FullMove *maxValue(Board *board, int depth, int alpha, int beta, PieceKind playe
     }
 }
 
-FullMove *minValue(Board *board, int depth, int alpha, int beta, PieceKind player) {
+FullMove *minValue(Board *board, int depth, int alpha, int beta, PieceKind player)
+{
     auto neutron = board->findNeutron();
 
-    if (!depth || neutron->row == 0 || neutron->row == 4) {
+    if (!depth || neutron->row == 0 || neutron->row == 4)
+    {
         clean(neutron);
         return new FullMove({}, heuristic(board));
     }
@@ -97,20 +109,23 @@ FullMove *minValue(Board *board, int depth, int alpha, int beta, PieceKind playe
 
     auto minFullMove = new FullMove({}, beta);
 
-    for (auto &fullMove: *fullMoves) {
+    for (auto &fullMove : *fullMoves)
+    {
         board->applyFullMove(fullMove);
 
         auto maxFullMove = maxValue(board, depth - 1, alpha, minFullMove->score,
                                     player == PieceKind::BLACK ? PieceKind::WHITE : PieceKind::BLACK);
 
-        if (maxFullMove->score < minFullMove->score) {
+        if (maxFullMove->score < minFullMove->score)
+        {
             minFullMove->score = maxFullMove->score;
             minFullMove->cloneMoves(fullMove->moves);
         }
 
         board->applyFullMove(fullMove, false);
 
-        if (alpha >= minFullMove->score) {
+        if (alpha >= minFullMove->score)
+        {
             fullMove->score = alpha;
 
             auto *fullMoveClone = fullMove->clone();
@@ -125,15 +140,18 @@ FullMove *minValue(Board *board, int depth, int alpha, int beta, PieceKind playe
         clean(maxFullMove);
     }
 
-    if (minFullMove->empty() && !fullMoves->empty()) {
+    if (minFullMove->empty() && !fullMoves->empty())
+    {
         auto tmp = new FullMove({}, std::numeric_limits<int>::min());
-        for (auto &fullMove: *fullMoves) {
+        for (auto &fullMove : *fullMoves)
+        {
             board->applyFullMove(fullMove);
             auto h = heuristic(board);
             board->applyFullMove(fullMove, false);
             fullMove->score = h;
 
-            if (fullMove->score < tmp->score) {
+            if (fullMove->score < tmp->score)
+            {
                 delete tmp;
                 tmp = fullMove->clone();
             }
@@ -144,7 +162,9 @@ FullMove *minValue(Board *board, int depth, int alpha, int beta, PieceKind playe
         clean(neutron);
 
         return tmp;
-    } else {
+    }
+    else
+    {
         clean(fullMoves);
         clean(neutron);
 
