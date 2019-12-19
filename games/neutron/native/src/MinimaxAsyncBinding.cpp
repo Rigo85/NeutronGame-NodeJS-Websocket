@@ -20,8 +20,8 @@ NAN_MODULE_INIT(MinimaxAsyncBinding::Init) {
 
 NAN_METHOD(MinimaxAsyncBinding::NativeMinimax) {
     Nan::AsyncQueueWorker(new MinimaxAsyncWorker (
-            std::string(*Nan::Utf8String(info[0]->ToString())),
-            info[1]->BooleanValue(),
+            std::string(*Nan::Utf8String(info[0])),
+            Nan::To<bool>(info[1]).FromJust(),
             new Nan::Callback(info[2].As<v8::Function>())
     ));
 }

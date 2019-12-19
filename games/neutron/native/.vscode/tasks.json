@@ -12,7 +12,11 @@
             "command": "cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Debug ..",
             "problemMatcher": [
                 "$gcc"
-            ]
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "make",
