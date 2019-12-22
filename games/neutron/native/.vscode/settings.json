@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "chrono": "cpp",
         "array": "cpp",
-        "string_view": "cpp"
-    }
+        "string_view": "cpp",
+        "iosfwd": "cpp"
+    },
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}"
 }

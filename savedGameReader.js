@@ -23,10 +23,12 @@ function readGame(path) {
 
 }
 
-const path = "/mnt/c/Users/rigo/Downloads/neutron-game-2018-07-25T15-39-43-05-00.json";
-
-readGame(path)
-.then(movs => movs.map(mov => new FullMove(mov.moves.map(m => new Move(m.row, m.col, m.kind)), mov.score).toString()).join('\n'))
-.then(console.log)
-.catch(console.error);
+// const path = "/home/rigo/neutron-game-2019-12-21T11-30-49-05-00.json";
+if (process.argv.length > 2)
+    readGame(process.argv[2])
+        .then(movs => movs.map(mov => new FullMove(mov.moves.map(m => new Move(m.row, m.col, m.kind)), mov.score).toString()).join('\n'))
+        .then(console.log)
+        .catch(console.error);
+else
+    console.log("...saved games file!!!");
 

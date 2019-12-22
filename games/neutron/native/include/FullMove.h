@@ -13,14 +13,14 @@
 
 #pragma once
 
-#include <vector>
-#include <iostream>
-
 #include <Move.h>
 #include <PieceKind.h>
 
+#include <iostream>
+#include <vector>
+
 class FullMove {
-public:
+   public:
     FullMove(std::initializer_list<Move *> moves, int score);
 
     ~FullMove();

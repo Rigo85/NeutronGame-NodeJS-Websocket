@@ -11,7 +11,6 @@
  * AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
  */
 
-
 #include <FullMove.h>
 
 FullMove::FullMove(std::initializer_list<Move *> moves, int score) {
@@ -44,9 +43,7 @@ std::string FullMove::kind2Name(PieceKind &pieceKind) const {
     }
 }
 
-bool FullMove::empty() const {
-    return moves == nullptr || moves->empty();
-}
+bool FullMove::empty() const { return moves == nullptr || moves->empty(); }
 
 std::ostream &operator<<(std::ostream &ostr, const FullMove &fullMove) {
     if (!fullMove.empty()) {
@@ -81,16 +78,18 @@ FullMove *FullMove::clone() {
 }
 
 std::string FullMove::toJson() {
+    // clang-format off
     std::string str;
     std::string movesJson;
 
-    if (this->moves->empty()) movesJson = "[]";
+    if (this->moves->empty())
+        movesJson = "[]";
     else
-        movesJson = "[" +
-                    this->moves->at(0)->toJson() + "," +
-                    this->moves->at(1)->toJson() + "," +
-                    this->moves->at(2)->toJson() + "," +
-                    this->moves->at(3)->toJson() + "]";
-
+        movesJson = "[" 
+        + this->moves->at(0)->toJson() + "," 
+        + this->moves->at(1)->toJson() + "," 
+        + this->moves->at(2)->toJson() + "," 
+        + this->moves->at(3)->toJson() + "]";
+    // clang-format on
     return "{\"moves\":" + movesJson + ", \"score\":" + std::to_string(score) + "}";
 }
