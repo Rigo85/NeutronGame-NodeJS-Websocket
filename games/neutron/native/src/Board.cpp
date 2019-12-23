@@ -25,8 +25,10 @@ Board::Board(Table *table) { this->table = table; }
 Board::~Board() { delete table; }
 
 Move *Board::_find(Table *b, int r, int c) {
-    if ((*b)[r][c] == PieceKind::NEUTRON) return new Move(r, c, PieceKind::NEUTRON);
-    if (r == 5) return nullptr;
+    if ((*b)[r][c] == PieceKind::NEUTRON)
+        return new Move(r, c, PieceKind::NEUTRON);
+    if (r == 5)
+        return nullptr;
     auto _c = (c + 1u) % 5u;
     auto _r = r + (!_c ? 1u : 0u);
 
@@ -49,23 +51,35 @@ std::vector<Move *> *Board::findPieces(PieceKind pieceKind) {
 }
 
 int Board::getRowMove(Direction direction) {
-    if (direction == Direction::NORTH) return -1;
-    if (direction == Direction::SOUTH) return 1;
-    if (direction == Direction::NORTHEAST) return -1;
-    if (direction == Direction::NORTHWEST) return -1;
-    if (direction == Direction::SOUTHEAST) return 1;
-    if (direction == Direction::SOUTHWEST) return 1;
+    if (direction == Direction::NORTH)
+        return -1;
+    if (direction == Direction::SOUTH)
+        return 1;
+    if (direction == Direction::NORTHEAST)
+        return -1;
+    if (direction == Direction::NORTHWEST)
+        return -1;
+    if (direction == Direction::SOUTHEAST)
+        return 1;
+    if (direction == Direction::SOUTHWEST)
+        return 1;
 
     return 0;
 }
 
 int Board::getColMove(Direction direction) {
-    if (direction == Direction::WEST) return -1;
-    if (direction == Direction::EAST) return 1;
-    if (direction == Direction::NORTHEAST) return 1;
-    if (direction == Direction::NORTHWEST) return -1;
-    if (direction == Direction::SOUTHEAST) return 1;
-    if (direction == Direction::SOUTHWEST) return -1;
+    if (direction == Direction::WEST)
+        return -1;
+    if (direction == Direction::EAST)
+        return 1;
+    if (direction == Direction::NORTHEAST)
+        return 1;
+    if (direction == Direction::NORTHWEST)
+        return -1;
+    if (direction == Direction::SOUTHEAST)
+        return 1;
+    if (direction == Direction::SOUTHWEST)
+        return -1;
 
     return 0;
 }
@@ -73,7 +87,8 @@ int Board::getColMove(Direction direction) {
 bool Board::inBounds(int value, int inc) { return value + inc >= 0 && value + inc < 5; }
 
 Move *Board::_check(int row, int col, int incR, int incC, Table *table) {
-    if (!inBounds(row, incR) || !inBounds(col, incC) || (*table)[row + incR][col + incC] != PieceKind::CELL) return new Move(row, col, (*table)[row][col]);
+    if (!inBounds(row, incR) || !inBounds(col, incC) || (*table)[row + incR][col + incC] != PieceKind::CELL)
+        return new Move(row, col, (*table)[row][col]);
     return _check(row + incR, col + incC, incR, incC, table);
 }
 
@@ -103,7 +118,8 @@ std::vector<Move *> *Board::moves(Move *startPoint) {
 
 void Board::applyMove(Move *from, Move *to) {
     (*table)[to->row][to->col] = to->kind;
-    if (from->col * 5 + from->row != to->col * 5 + to->row) (*table)[from->row][from->col] = PieceKind::CELL;
+    if (from->col * 5 + from->row != to->col * 5 + to->row)
+        (*table)[from->row][from->col] = PieceKind::CELL;
 }
 
 void Board::applyFullMove(FullMove *fullMove, bool apply) {
@@ -116,27 +132,24 @@ std::vector<FullMove *> *Board::allMoves(PieceKind pieceKind) {
     Move *lastNeutron = neutron->clone();
     auto playerHome = pieceKind == PieceKind::BLACK ? 0 : 4;
     auto opponentHome = pieceKind == PieceKind::BLACK ? 4 : 0;
-    // std::cout << "WIN ROW: " << playerHome << " LOSS ROW: " << opponentHome << std::endl;
 
-    auto *neutronMoves = new std::vector<Move *>();
-    auto *_neutronMoves = this->moves(neutron);
-    for (auto &_neutronMove : *_neutronMoves) {
-        if (_neutronMove->row != opponentHome) {
-            neutronMoves->push_back(_neutronMove->clone());
+    // eliminar movimientos perdedores.
+    auto *neutronMoves = this->moves(neutron);
+    for (auto it = neutronMoves->begin(); it != neutronMoves->end(); ++it) {
+        if ((*it)->row == opponentHome) {
+            auto it2 = it;
+            --it;
+            delete *it2;
+            neutronMoves->erase(it2);
         }
     }
 
-    clean(_neutronMoves);
-
-    for (auto &nm : *neutronMoves) {
-        if (nm->row == playerHome) {
-            auto _nm = nm->clone();
-            clean(neutronMoves);
-            neutronMoves = new std::vector<Move *>();
-            neutronMoves->push_back(_nm);
-            // std::cout << "WIN POSITION: " << *_nm << std::endl;
-            break;
-        }
+    // si aparece un movimiento ganador, descartar el resto.
+    auto it = std::find_if(neutronMoves->begin(), neutronMoves->end(), [&playerHome](auto &m) { return m->row == playerHome; });
+    if (it != neutronMoves->end()) {
+        auto neutronMove = (*it)->clone();
+        clean(neutronMoves);
+        neutronMoves = new std::vector<Move *>({neutronMove});
     }
 
     auto *pieces = this->findPieces(pieceKind);
@@ -185,8 +198,11 @@ std::ostream &operator<<(std::ostream &ostr, const Board &board) {
 }
 
 std::string Board::pieceToString(PieceKind pieceKind) const {
-    if (pieceKind == PieceKind::BLACK) return "B";
-    if (pieceKind == PieceKind::WHITE) return "W";
-    if (pieceKind == PieceKind::NEUTRON) return "N";
+    if (pieceKind == PieceKind::BLACK)
+        return "B";
+    if (pieceKind == PieceKind::WHITE)
+        return "W";
+    if (pieceKind == PieceKind::NEUTRON)
+        return "N";
     return " ";
 }
