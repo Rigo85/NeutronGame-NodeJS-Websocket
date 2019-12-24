@@ -17,10 +17,13 @@
             "games/neutron/native/index.cpp"
 		],
         "cflags_cc": [
-            "-std=c++14",
+            "-Wno-cast-function-type",
+            "-Wall",
+            "-std=c++17",
             "-O3",
             "-flto", 
             "-ffast-math",
+            "-funroll-all-loops",
             "-msse4.2",
             "-march=native",
             "-mtune=native"
