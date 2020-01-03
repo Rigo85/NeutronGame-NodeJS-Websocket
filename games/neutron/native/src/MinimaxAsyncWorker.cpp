@@ -31,7 +31,7 @@ void MinimaxAsyncWorker::Execute() {
 
     auto *board = new Board(getTable(this->input));
     auto t1 = std::chrono::system_clock::now();
-    auto *fm = maxValue(board, 7, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), PieceKind::BLACK);
+    auto *fm = maxValue(board, 5, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), PieceKind::BLACK);
     auto t2 = std::chrono::system_clock::now();
     this->output = fm->toJson();
 
