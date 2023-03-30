@@ -7,6 +7,9 @@
     "debug": "browserify public/js/mainWindow.js -o public/js/mainWindowBundle.js && node ./bin/www",
     "compile": "node-gyp rebuild"
   },
+  "engines": {
+    "node": "12.22.12"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.4",
     "cookie-session": "^2.0.0-beta.3",
