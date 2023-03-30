@@ -26,7 +26,7 @@ function getWhoMove(userData) {
 }
 
 /**
- * Update players's turn.
+ * Update player's turn.
  */
 function updateWhoMove(userData) {
     userData.whoMove = (userData.whoMove + 1) % 2;
@@ -46,7 +46,7 @@ exports.onCellClicked = function (row, col, userData) {
             const m = moves(move, userData.board);
             updateBoard(m.concat(move), userData.board);
             userData.selectedChip = move;
-        } else if (userData.board[row][col] == PieceKind.SCELL) {
+        } else if (userData.board[row][col] === PieceKind.SCELL) {
             applyMove(userData.selectedChip, new Move(row, col, userData.selectedChip.kind), userData.board);
             updateBoard([], userData.board);
 
